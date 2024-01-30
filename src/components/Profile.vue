@@ -10,6 +10,7 @@ import { storeToRefs } from 'pinia';
 
 const route         = useRoute();
 const {username}    = route.params
+
 const posts         = ref([]);
 const user          = ref(null);
 const loading       = ref(false);
@@ -18,6 +19,7 @@ const userInfo      = reactive({
     followers: null,
     following: null
 });
+
 const isFollowing   = ref(false);
 const userStore     = useUserStore()
 const {user: loggedInUser}        = storeToRefs(userStore);
@@ -78,6 +80,7 @@ const fetchIsFollowing = async () => {
             .select()
             .eq("follower_id", loggedInUser.value.id)
             .eq("following_id", user.value.id)
+            .single();
 
         if (data) isFollowing.value = true
     }
